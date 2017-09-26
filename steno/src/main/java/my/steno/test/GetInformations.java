@@ -22,8 +22,12 @@ public class GetInformations {
 		// Get back the data.
 		String hiddenData64 = StenoUtils.getHiddenData(fileNameFullPath);
 		System.out.println("!hiddenData64 data: " + hiddenData64);
-		String hiddenData = new String(Base64.getDecoder().decode(hiddenData64));
-		System.out.println("!hidden data: " + hiddenData);
+		if (hiddenData64 == null) {
+			System.err.println("Data not found");
+		} else {
+			String hiddenData = new String(Base64.getDecoder().decode(hiddenData64));
+			System.out.println("!hidden data: " + hiddenData);
+		}
 
 		long end = System.currentTimeMillis();
 		System.out.println((end - start) / 1000f + " seconds");
