@@ -63,7 +63,11 @@ public class StenoUtils {
 
 			String tempFileData = new String(fileData);
 
-			return tempFileData.substring(tempFileData.indexOf(INDEX) + INDEX.length(), tempFileData.length());
+			if (tempFileData.indexOf(INDEX) >= 0) {
+				return tempFileData.substring(tempFileData.indexOf(INDEX) + INDEX.length(), tempFileData.length());
+			}
+
+			return null;
 
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e);
@@ -82,8 +86,8 @@ public class StenoUtils {
 		String[] fileName = directory.list((dir, name) -> name.endsWith(".jpg"));
 
 		// transformation du tableau de string en list de fichier.
-		// List<File> files = Stream.of(fileName).map(s -> new
-		// File(s)).collect(Collectors.toList());
-		return Stream.of(fileName).map(File::new).collect(Collectors.toList());
+		return Stream.of(fileName).map(s -> new File(directory + "/" + s)).collect(Collectors.toList());
+		// return
+		// Stream.of(fileName).map(File::new).collect(Collectors.toList());
 	}
 }
